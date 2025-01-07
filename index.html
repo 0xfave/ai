@@ -912,12 +912,12 @@
             }
         }
 
-        /* Update tooltip styles for desktop/laptop */
+        /* Update tooltip styles */
         .tooltip {
             position: absolute;
             top: calc(100% + 0.5rem);
             left: 0;
-            width: 400px; /* Increased width to accommodate grid */
+            width: 400px;
             background: #020916;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
@@ -929,22 +929,19 @@
             z-index: 1000;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-        }
-
-        .tooltip.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
+            gap: 0.75rem;
         }
 
         .tooltip-item {
-            padding: 0.75rem 1rem;
+            padding: 1rem;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-size: 0.9375rem;
             border-radius: 6px;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .tooltip-item:hover {
@@ -952,16 +949,12 @@
             color: white;
         }
 
-        /* Revert to single column on mobile */
-        @media (max-width: 768px) {
-            .tooltip {
-                display: block;
-                width: 100%;
-                background: transparent;
-                border: none;
-                box-shadow: none;
-                padding: 0;
-            }
+        /* Add hover intent delay */
+        .dropdown:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition-delay: 0.1s;
         }
 
         /* Mobile menu styles */
