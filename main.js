@@ -52,3 +52,48 @@ if (waitlistForm) {
     }
   });
 }
+
+// Add tooltip functionality
+const useCasesBtn = document.getElementById("useCasesBtn");
+const tooltip = document.getElementById("useCasesTooltip");
+
+if (useCasesBtn && tooltip) {
+  // Show on hover
+  useCasesBtn.addEventListener("mouseenter", () => {
+    tooltip.classList.add("active");
+  });
+
+  // Hide when mouse leaves dropdown area
+  document.querySelector(".dropdown").addEventListener("mouseleave", () => {
+    tooltip.classList.remove("active");
+  });
+
+  // Toggle on click for mobile
+  useCasesBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    tooltip.classList.toggle("active");
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", () => {
+    tooltip.classList.remove("active");
+  });
+}
+
+// Add mobile tooltip functionality
+const useCasesLink = document.querySelector(".use-cases-link");
+const mobileTooltip = document.querySelector(".mobile-tooltip");
+
+if (useCasesLink && mobileTooltip) {
+  useCasesLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    mobileTooltip.classList.toggle("active");
+
+    // Rotate arrow icon
+    const arrow = useCasesLink.querySelector("svg");
+    arrow.style.transform = mobileTooltip.classList.contains("active")
+      ? "rotate(180deg)"
+      : "rotate(0)";
+  });
+}

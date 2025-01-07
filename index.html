@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AssetShield - Autonomous Multisig Signer</title>
+    <link rel="icon" href="./images/logo.png" type="image/x-icon"> <!-- Favicon link -->
+    <meta property="og:title" content="AssetShield - Autonomous Multisig Signer">
+    <meta property="og:description" content="Leverage Decentralized AI Agents to protect your assets.">
+    <meta property="og:image" content="https://www.assetshield.app/images/preview.png">
+    <!-- Replace with your image URL -->
+    <meta property="og:url" content="https://www.assetshield.app/"> <!-- Replace with your website URL -->
+    <meta property="og:type" content="website">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         @font-face {
@@ -249,7 +257,8 @@
         }
 
         /* Update the SVG icons in buttons */
-        .primary-btn svg, .secondary-btn svg {
+        .primary-btn svg,
+        .secondary-btn svg {
             width: 20px;
             height: 20px;
         }
@@ -579,6 +588,7 @@
         }
 
         @media (max-width: 768px) {
+
             /* Header adjustments */
             .header {
                 padding: 0.75rem 1rem;
@@ -642,7 +652,7 @@
 
             /* Use cases section adjustments */
             .use-cases {
-                padding:  1rem;
+                padding: 1rem;
             }
 
             .use-cases-nav {
@@ -688,27 +698,49 @@
         }
 
         /* Update mobile menu styles */
-        .mobile-menu {
-            position: absolute;
-            top: calc(100% + 1rem);
-            right: 0;
-            width: 280px;
-            background: #020916;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 1rem;
-            transform: translateY(-10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.2s ease;
-            z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        .mobile-menu,
+        .mobile-menu-btn {
+            display: none; /* Hide by default on all screens */
         }
 
-        .mobile-menu.active {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
+        /* Show mobile elements only on mobile screens */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.7);
+                padding: 0.5rem;
+                cursor: pointer;
+            }
+
+            .mobile-menu {
+                display: block;
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                width: 280px;
+                background: #020916;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 1rem;
+                transform: translateY(-10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s ease;
+                z-index: 1000;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            }
+
+            .mobile-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links {
+                display: none; /* Hide desktop nav on mobile */
+            }
         }
 
         .mobile-menu-links {
@@ -758,7 +790,7 @@
             }
 
             .mobile-menu-btn {
-                display: block;
+                display: none;
             }
 
             .nav-links {
@@ -830,7 +862,8 @@
 
         /* Add these media queries for mobile button styles */
         @media (max-width: 768px) {
-            .primary-btn, 
+
+            .primary-btn,
             .secondary-btn {
                 padding: 0.75rem 1.5rem;
                 font-size: 0.9375rem;
@@ -845,7 +878,8 @@
             }
 
             .hero-buttons {
-                max-width: 250px; /* Make buttons container smaller */
+                max-width: 250px;
+                /* Make buttons container smaller */
                 margin: 2rem auto 0;
             }
 
@@ -862,7 +896,8 @@
 
         /* Even smaller screens */
         @media (max-width: 360px) {
-            .primary-btn, 
+
+            .primary-btn,
             .secondary-btn {
                 padding: 0.625rem 1.25rem;
                 font-size: 0.875rem;
@@ -872,8 +907,145 @@
                 max-width: 220px;
             }
         }
+
+        /* Add these styles for the tooltip */
+        .tooltip {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            width: 220px;
+            background: #1f2937;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .tooltip.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .tooltip-item {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .tooltip-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        /* Mobile tooltip styles */
+        @media (max-width: 768px) {
+            .tooltip {
+                position: static;
+                width: 100%;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+
+            .tooltip-item {
+                padding: 0.75rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .tooltip-item:last-child {
+                border-bottom: none;
+            }
+        }
+
+        /* Mobile menu styles */
+        .mobile-menu-btn {
+            display: none; /* Hide button by default */
+        }
+
+        .mobile-menu {
+            display: none; /* Hide menu by default */
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Hide desktop nav */
+            }
+
+            .mobile-menu-btn {
+                display: block; /* Show hamburger button */
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 0.7);
+                padding: 0.5rem;
+                cursor: pointer;
+            }
+
+            .mobile-menu {
+                display: block; /* Show mobile menu container */
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                width: 280px;
+                background: #020916;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 1rem;
+                transform: translateY(-10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.2s ease;
+                z-index: 1000;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            }
+
+            .mobile-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        /* Add these tooltip styles */
+        .mobile-dropdown {
+            position: relative;
+        }
+
+        .mobile-tooltip {
+            display: none;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .mobile-tooltip.active {
+            display: block;
+        }
+
+        .mobile-tooltip a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9375rem;
+        }
+
+        .mobile-tooltip a:hover {
+            color: white;
+        }
     </style>
 </head>
+
 <body>
     <header class="header">
         <nav class="nav">
@@ -884,26 +1056,48 @@
                 </a>
                 <div class="nav-links">
                     <div class="dropdown">
-                        <button class="dropdown-btn">
+                        <button class="dropdown-btn" id="useCasesBtn">
                             Use Cases
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M6 9l6 6 6-6"/>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M6 9l6 6 6-6" />
                             </svg>
                         </button>
+                        <div class="tooltip" id="useCasesTooltip">
+                            <a href="#security" class="tooltip-item">Security</a>
+                            <a href="#daos" class="tooltip-item">DAOs & NFT Collections</a>
+                            <a href="#charities" class="tooltip-item">Charities</a>
+                            <a href="#insurance" class="tooltip-item">Insurance Funds</a>
+                            <a href="#antifud" class="tooltip-item">Anti-FUD</a>
+                            <a href="#ai" class="tooltip-item">AI Organizations</a>
+                        </div>
                     </div>
-                    <a href="#contact">Contact Us</a>
+                    <a href="https://dain.org/">Contact Us</a>
                 </div>
             </div>
             <div class="nav-right">
                 <a href="/waitlist.html" class="waitlist-btn desktop-only">Join the Waitlist</a>
                 <button class="mobile-menu-btn">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                        <path d="M3 12h18M3 6h18M3 18h18" />
                     </svg>
                 </button>
                 <div class="mobile-menu">
                     <div class="mobile-menu-links">
-                        <a href="#use-cases">Use Cases</a>
+                        <a href="#" class="use-cases-link">
+                            Use Cases
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </a>
+                        <div class="mobile-tooltip">
+                            <a href="#security">Security</a>
+                            <a href="#daos">DAOs & NFT Collections</a>
+                            <a href="#charities">Charities</a>
+                            <a href="#insurance">Insurance Funds</a>
+                            <a href="#antifud">Anti-FUD</a>
+                            <a href="#ai">AI Organizations</a>
+                        </div>
                         <a href="#contact">Contact Us</a>
                         <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
                     </div>
@@ -924,13 +1118,14 @@
             <div class="hero-buttons">
                 <a href="/waitlist.html" class="primary-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 6L9 17l-5-5"/>
+                        <path d="M20 6L9 17l-5-5" />
                     </svg>
                     Join the Waitlist
                 </a>
                 <a href="https://x.com/assetshield_ai" class="secondary-btn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                     </svg>
                     Follow us on X
                 </a>
@@ -940,21 +1135,25 @@
 
     <section class="steps-section">
         <h2 class="steps-title">
-            Add an autonomous program signer to your multisig wallet to <span class="underline">secure your bags</span> 💰
+            Add an autonomous program signer to your multisig wallet to <span class="underline">secure your bags</span>
+            💰
         </h2>
-        
+
         <div class="steps-container">
             <div class="step-card">
                 <div class="step-number">Step #1</div>
-                <p>Create text based rules for your AI agent to follow, these can be as simple or complex as you want. Just let the agent know what you are looking for.</p>
+                <p>Create text based rules for your AI agent to follow, these can be as simple or complex as you want.
+                    Just let the agent know what you are looking for.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">Step #2</div>
-                <p>Add your guardian to your Squads Multisig just like any other member. It takes less than a minute!</p>
+                <p>Add your guardian to your Squads Multisig just like any other member. It takes less than a minute!
+                </p>
             </div>
             <div class="step-card">
                 <div class="step-number">Step #3</div>
-                <p>All Transactions are scanned and signed by a decentralized network of autonomous agents that come to consensus on adherence to rules. Powered by DAIN.</p>
+                <p>All Transactions are scanned and signed by a decentralized network of autonomous agents that come to
+                    consensus on adherence to rules. Powered by DAIN.</p>
             </div>
         </div>
     </section>
@@ -964,38 +1163,45 @@
         <div class="use-cases-nav">
             <button class="use-case-btn active">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-2.98 8.95-7 10.05-4.02-1.1-7-5.38-7-10.05V6.3l7-3.12z"/>
-                    <path d="M12 7a2 2 0 100 4 2 2 0 000-4zm0 6c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                    <path
+                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-2.98 8.95-7 10.05-4.02-1.1-7-5.38-7-10.05V6.3l7-3.12z" />
+                    <path
+                        d="M12 7a2 2 0 100 4 2 2 0 000-4zm0 6c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                 </svg>
                 Security
             </button>
             <button class="use-case-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                    <path
+                        d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
                 </svg>
                 DAOs & NFT Collections
             </button>
             <button class="use-case-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    <path
+                        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
                 Charities
             </button>
             <button class="use-case-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                    <path
+                        d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
                 </svg>
                 Insurance Funds
             </button>
             <button class="use-case-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm7 10c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11 7 3.11V11zm-11.59.59L6 13l4 4 8-8-1.41-1.42L10 14.17z"/>
+                    <path
+                        d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm7 10c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11 7 3.11V11zm-11.59.59L6 13l4 4 8-8-1.41-1.42L10 14.17z" />
                 </svg>
                 Anti-FUD
             </button>
             <button class="use-case-btn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L17.83 13H22z"/>
+                    <path
+                        d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l4.66 4.66 1.42-1.41L17.83 13H22z" />
                 </svg>
                 AI Organizations
             </button>
@@ -1021,7 +1227,8 @@
             <div class="example-rules">
                 <h4>Example Rules</h4>
                 <ul>
-                    <li>Check our roadmap nftproject.com/roadmap and only allow transfers that align with it and are documented on our forum found here: www.forum.com</li>
+                    <li>Check our roadmap nftproject.com/roadmap and only allow transfers that align with it and are
+                        documented on our forum found here: www.forum.com</li>
                 </ul>
             </div>
         </div>
@@ -1069,35 +1276,50 @@
             <div class="example-rules">
                 <h4>Example Rules</h4>
                 <ul>
-                    <li>Only allow transactions that would increase the value of the organization over time. I'm really into AI tokens right now, so only allow trades with those.</li>
+                    <li>Only allow transactions that would increase the value of the organization over time. I'm really
+                        into AI tokens right now, so only allow trades with those.</li>
                 </ul>
             </div>
         </div>
     </section>
 
-   
+
     <footer class="footer">
         <h2>Sit back and relax,<br>your assets are protected 24/7</h2>
         <a href="/waitlist.html" class="primary-btn" style="display: inline-flex;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20 6L9 17l-5-5"/>
+                <path d="M20 6L9 17l-5-5" />
             </svg>
             Join the Waitlist
         </a>
     </footer>
 
     <!-- Add mobile menu button to header -->
- 
+
 
     <!-- Add mobile menu -->
     <div class="mobile-menu">
         <div class="mobile-menu-links">
-            <a href="#use-cases">Use Cases</a>
+            <a href="#" class="use-cases-link">
+                Use Cases
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </a>
+            <div class="mobile-tooltip">
+                <a href="#security">Security</a>
+                <a href="#daos">DAOs & NFT Collections</a>
+                <a href="#charities">Charities</a>
+                <a href="#insurance">Insurance Funds</a>
+                <a href="#antifud">Anti-FUD</a>
+                <a href="#ai">AI Organizations</a>
+            </div>
             <a href="#contact">Contact Us</a>
             <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
         </div>
     </div>
 
-<script src="/main.js"></script>
+    <script src="/main.js"></script>
 </body>
-</html> 
+
+</html>
