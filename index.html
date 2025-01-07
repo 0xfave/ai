@@ -912,22 +912,24 @@
             }
         }
 
-        /* Add these styles for the tooltip */
+        /* Update tooltip styles for desktop/laptop */
         .tooltip {
             position: absolute;
             top: calc(100% + 0.5rem);
             left: 0;
-            width: 220px;
-            background: #1f2937;
+            width: 400px; /* Increased width to accommodate grid */
+            background: #020916;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            padding: 0.5rem;
+            padding: 1rem;
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.2s ease;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
         }
 
         .tooltip.active {
@@ -937,12 +939,11 @@
         }
 
         .tooltip-item {
-            display: block;
             padding: 0.75rem 1rem;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             font-size: 0.9375rem;
-            border-radius: 4px;
+            border-radius: 6px;
             transition: all 0.2s ease;
         }
 
@@ -951,24 +952,15 @@
             color: white;
         }
 
-        /* Mobile tooltip styles */
+        /* Revert to single column on mobile */
         @media (max-width: 768px) {
             .tooltip {
-                position: static;
+                display: block;
                 width: 100%;
                 background: transparent;
                 border: none;
                 box-shadow: none;
                 padding: 0;
-            }
-
-            .tooltip-item {
-                padding: 0.75rem;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            .tooltip-item:last-child {
-                border-bottom: none;
             }
         }
 
@@ -1068,12 +1060,12 @@
                             </svg>
                         </button>
                         <div class="tooltip" id="useCasesTooltip">
-                            <a href="#security" class="tooltip-item">Security</a>
-                            <a href="#daos" class="tooltip-item">DAOs & NFT Collections</a>
-                            <a href="#charities" class="tooltip-item">Charities</a>
-                            <a href="#insurance" class="tooltip-item">Insurance Funds</a>
-                            <a href="#antifud" class="tooltip-item">Anti-FUD</a>
-                            <a href="#ai" class="tooltip-item">AI Organizations</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="use-cases">Security</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="daos">DAOs & NFT Collections</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="charities">Charities</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="insurance">Insurance Funds</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="antifud">Anti-FUD</a>
+                            <a href="#use-cases" class="tooltip-item" data-tab="ai">AI Organizations</a>
                         </div>
                     </div>
                     <a href="https://dain.org/">Contact Us</a>
@@ -1095,12 +1087,12 @@
                             </svg>
                         </a>
                         <div class="mobile-tooltip">
-                            <a href="#security">Security</a>
-                            <a href="#daos">DAOs & NFT Collections</a>
-                            <a href="#charities">Charities</a>
-                            <a href="#insurance">Insurance Funds</a>
-                            <a href="#antifud">Anti-FUD</a>
-                            <a href="#ai">AI Organizations</a>
+                            <a href="#security" data-tab="security">Security</a>
+                            <a href="#daos" data-tab="daos">DAOs & NFT Collections</a>
+                            <a href="#charities" data-tab="charities">Charities</a>
+                            <a href="#insurance" data-tab="insurance">Insurance Funds</a>
+                            <a href="#antifud" data-tab="antifud">Anti-FUD</a>
+                            <a href="#ai" data-tab="ai">AI Organizations</a>
                         </div>
                         <a href="#contact">Contact Us</a>
                         <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
@@ -1162,7 +1154,7 @@
         </div>
     </section>
 
-    <section class="use-cases">
+    <section class="use-cases" id="use-cases">
         <h2>Use Cases</h2>
         <div class="use-cases-nav">
             <button class="use-case-btn active">
@@ -1212,7 +1204,7 @@
         </div>
 
         <!-- Security tab content -->
-        <div class="use-case-content active">
+        <div class="use-case-content active" id="security">
             <h3>What?</h3>
             <p>Flag and block potentially malicious transactions</p>
             <div class="example-rules">
@@ -1225,7 +1217,7 @@
         </div>
 
         <!-- DAOs & NFT Collections tab content -->
-        <div class="use-case-content">
+        <div class="use-case-content" id="daos">
             <h3>What?</h3>
             <p>Ensure transfers align with project roadmap and rules<br>Prevent founders from rug pulls</p>
             <div class="example-rules">
@@ -1238,7 +1230,7 @@
         </div>
 
         <!-- Charities tab content -->
-        <div class="use-case-content">
+        <div class="use-case-content" id="charities">
             <h3>What?</h3>
             <p>Only allow transfers to verified charitable organizations</p>
             <div class="example-rules">
@@ -1262,7 +1254,7 @@
         </div>
 
         <!-- Anti-FUD tab content -->
-        <div class="use-case-content">
+        <div class="use-case-content" id="antifud">
             <h3>What?</h3>
             <p>Prevent panic selling</p>
             <div class="example-rules">
@@ -1274,7 +1266,7 @@
         </div>
 
         <!-- AI Organizations tab content -->
-        <div class="use-case-content">
+        <div class="use-case-content" id="ai">
             <h3>What?</h3>
             <p>Create organizations with zero human members controlled fully by AI</p>
             <div class="example-rules">
@@ -1311,12 +1303,12 @@
                 </svg>
             </a>
             <div class="mobile-tooltip">
-                <a href="#security">Security</a>
-                <a href="#daos">DAOs & NFT Collections</a>
-                <a href="#charities">Charities</a>
-                <a href="#insurance">Insurance Funds</a>
-                <a href="#antifud">Anti-FUD</a>
-                <a href="#ai">AI Organizations</a>
+                <a href="#security" data-tab="security">Security</a>
+                <a href="#daos" data-tab="daos">DAOs & NFT Collections</a>
+                <a href="#charities" data-tab="charities">Charities</a>
+                <a href="#insurance" data-tab="insurance">Insurance Funds</a>
+                <a href="#antifud" data-tab="antifud">Anti-FUD</a>
+                <a href="#ai" data-tab="ai">AI Organizations</a>
             </div>
             <a href="#contact">Contact Us</a>
             <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
