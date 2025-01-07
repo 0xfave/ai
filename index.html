@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AssetShield - Autonomous Multisig Signer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-SemiBold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --primary-blue: #3B82F6;
+            --text-gray: #94A3B8;
+            --bg-dark: #020617;
+            --card-bg: rgba(30, 41, 59, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #020916;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+        }
+
+        .nav {
+            position: relative;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 24px;
+            width: auto;
+        }
+
+        .logo span {
+            color: white;
+            font-weight: 500;
+            font-size: 1.125rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .waitlist-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .waitlist-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Remove the select element styles since we're using a button now */
+        .nav-links select {
+            display: none;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+            text-align: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            padding-top: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 6.5rem;
+            line-height: 1;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            color: #3B82F6;
+            background: linear-gradient(90deg, #3B82F6, #60A5FA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.25rem;
+            margin: 2rem 0 3rem;
+        }
+
+        .hero-subtitle img {
+            height: 24px;
+            opacity: 0.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .primary-btn {
+            background: #3B82F6;
+            color: black;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            border: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            background: #2563EB;
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Update the SVG icons in buttons */
+        .primary-btn svg, .secondary-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .steps {
+            padding: 1rem 1%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-number {
+            color: #3B82F6;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .step-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+        }
+
+        .use-cases {
+            padding: 2rem 5%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .use-cases h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .use-cases-nav {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: #1f2a3c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            justify-content: center;
+        }
+
+        .use-case-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1.25rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: transparent;
+            border: none;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .use-case-btn svg {
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .use-case-btn.active svg {
+            opacity: 1;
+        }
+
+        .use-case-btn:hover svg {
+            opacity: 0.9;
+        }
+
+        .use-case-btn.active {
+            background: #020916;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .use-case-content {
+            background: rgba(2, 6, 23, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: none;
+        }
+
+        .use-case-content.active {
+            display: block;
+        }
+
+        .use-case-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .use-case-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .example-rules h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .example-rules ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .example-rules li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 4rem 5% 6rem;
+            color: white;
+        }
+
+        .footer h2 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        /* Hide scrollbar but keep functionality */
+        .use-cases-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Add smooth transitions */
+        .use-case-btn,
+        .primary-btn,
+        .secondary-btn,
+        .waitlist-btn {
+            transition: all 0.2s ease;
+        }
+
+        /* Hover states */
+        .primary-btn:hover {
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .secondary-btn:hover,
+        .waitlist-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Additional utility classes */
+        .text-gradient {
+            background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .steps-section {
+            padding: 5rem;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .steps-title {
+            font-size: 2.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: -0.02em;
+        }
+
+        .underline {
+            position: relative;
+            display: inline-block;
+        }
+
+        .underline::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #3B82F6;
+            border-radius: 2px;
+            z-index: -1;
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .step-card {
+            background: rgba(2, 6, 23, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            color: #3B82F6;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.125rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .steps-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Update content styling */
+        .use-case-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .example-rules li {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Add these styles for the dropdown menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.75rem);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #020916;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            width: 480px;
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: grid;
+        }
+
+        .dropdown-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item h3 {
+            color: white;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .dropdown-item p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Update responsive styles for dropdown */
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                width: calc(100vw - 2rem);
+                left: 1rem;
+                transform: none;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* General responsive adjustments */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+                flex-wrap: wrap;
+            }
+
+            .dropdown-menu {
+                min-width: 480px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* Header adjustments */
+            .header {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-left {
+                gap: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Add mobile menu button */
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                cursor: pointer;
+            }
+
+            /* Hero section adjustments */
+            .hero {
+                min-height: 100vh;
+                padding: 0 1rem;
+            }
+
+            .hero-container {
+                width: 100%;
+                padding-top: 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                max-width: 300px;
+                margin: 2rem auto 0;
+            }
+
+            /* Steps section adjustments */
+            .steps-section {
+                padding: 4rem 1rem;
+            }
+
+            .steps-title {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            /* Use cases section adjustments */
+            .use-cases {
+                padding:  1rem;
+            }
+
+            .use-cases-nav {
+                padding: 0.5rem;
+                justify-content: flex-start;
+            }
+
+            .use-case-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .use-case-content {
+                padding: 1rem;
+            }
+
+            /* Footer adjustments */
+            .footer {
+                padding: 3rem 1rem;
+            }
+
+            .footer h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .dropdown-menu {
+                min-width: calc(100vw - 2rem);
+                left: 1rem;
+                transform: none;
+                grid-template-columns: 1fr;
+            }
+
+            .use-case-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        /* Update mobile menu styles */
+        .mobile-menu {
+            position: absolute;
+            top: calc(100% + 1rem);
+            right: 0;
+            width: 280px;
+            background: #020916;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            transform: translateY(-10px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-menu-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 1rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu-links a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu-links .waitlist-btn {
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 0.5rem;
+            border: none;
+        }
+
+        .mobile-menu-links .waitlist-btn:hover {
+            background: #2563EB;
+        }
+
+        /* Remove unnecessary header from mobile menu */
+        .mobile-menu-header {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .nav-right {
+                position: relative;
+            }
+
+            .desktop-only {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Additional adjustment for very small screens */
+        @media (max-width: 360px) {
+            .hero {
+                padding: 5rem 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Ensure the header has proper positioning */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Ensure nav-right has proper positioning */
+        .nav-right {
+            position: relative;
+        }
+
+        /* Add these styles for mobile use cases navigation */
+        @media (max-width: 768px) {
+            .use-cases-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 1rem;
+                width: 100%;
+                /* max-width: 300px; */
+                margin: 0 auto;
+            }
+
+            .use-case-btn {
+                width: 100%;
+                justify-content: flex-start;
+                padding: 0.75rem 1rem;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                color: rgba(255, 255, 255, 0.8);
+            }
+
+            .use-case-btn svg {
+                margin-right: 0.75rem;
+            }
+
+            .use-case-btn.active {
+                background: #020916;
+                color: white;
+            }
+
+            .use-case-content {
+                margin-top: 2rem;
+                padding: 1rem;
+            }
+        }
+
+        /* Add these media queries for mobile button styles */
+        @media (max-width: 768px) {
+            .primary-btn, 
+            .secondary-btn {
+                padding: 0.75rem 1.5rem;
+                font-size: 0.9375rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .primary-btn svg,
+            .secondary-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .hero-buttons {
+                max-width: 250px; /* Make buttons container smaller */
+                margin: 2rem auto 0;
+            }
+
+            .waitlist-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+
+            .mobile-menu-links .waitlist-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9375rem;
+            }
+        }
+
+        /* Even smaller screens */
+        @media (max-width: 360px) {
+            .primary-btn, 
+            .secondary-btn {
+                padding: 0.625rem 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .hero-buttons {
+                max-width: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-left">
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="AssetShield Logo">
+                    <span>AssetShield</span>
+                </a>
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <button class="dropdown-btn">
+                            Use Cases
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <a href="#contact">Contact Us</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="/waitlist.html" class="waitlist-btn desktop-only">Join the Waitlist</a>
+                <button class="mobile-menu-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+                <div class="mobile-menu">
+                    <div class="mobile-menu-links">
+                        <a href="#use-cases">Use Cases</a>
+                        <a href="#contact">Contact Us</a>
+                        <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Your <span>Autonomous</span><br>Multisig Signer</h1>
+            <div class="hero-subtitle">
+                <span>Leverage Decentralized AI Agents to protect your</span>
+                <img src="/images/solana.png" alt="Solana">
+                <span>Assets on</span>
+                <img src="/images/squads.png" alt="Squads">
+            </div>
+            <div class="hero-buttons">
+                <a href="/waitlist.html" class="primary-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                    Join the Waitlist
+                </a>
+                <a href="https://x.com/assetshield_ai" class="secondary-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    Follow us on X
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <h2 class="steps-title">
+            Add an autonomous program signer to your multisig wallet to <span class="underline">secure your bags</span> 💰
+        </h2>
+        
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">Step #1</div>
+                <p>Create text based rules for your AI agent to follow, these can be as simple or complex as you want. Just let the agent know what you are looking for.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">Step #2</div>
+                <p>Add your guardian to your Squads Multisig just like any other member. It takes less than a minute!</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">Step #3</div>
+                <p>All Transactions are scanned and signed by a decentralized network of autonomous agents that come to consensus on adherence to rules. Powered by DAIN.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="use-cases">
+        <h2>Use Cases</h2>
+        <div class="use-cases-nav">
+            <button class="use-case-btn active">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-2.98 8.95-7 10.05-4.02-1.1-7-5.38-7-10.05V6.3l7-3.12z"/>
+                    <path d="M12 7a2 2 0 100 4 2 2 0 000-4zm0 6c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                Security
+            </button>
+            <button class="use-case-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                </svg>
+                DAOs & NFT Collections
+            </button>
+            <button class="use-case-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                Charities
+            </button>
+            <button class="use-case-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                </svg>
+                Insurance Funds
+            </button>
+            <button class="use-case-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm7 10c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3l7-3.11 7 3.11V11zm-11.59.59L6 13l4 4 8-8-1.41-1.42L10 14.17z"/>
+                </svg>
+                Anti-FUD
+            </button>
+            <button class="use-case-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L17.83 13H22z"/>
+                </svg>
+                AI Organizations
+            </button>
+        </div>
+
+        <!-- Security tab content -->
+        <div class="use-case-content active">
+            <h3>What?</h3>
+            <p>Flag and block potentially malicious transactions</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>Hey Guardian, if the transaction you scan looks suspicious, block it.</li>
+                    <li>If the transaction you scan is sending more than 1000 SOL, block it.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DAOs & NFT Collections tab content -->
+        <div class="use-case-content">
+            <h3>What?</h3>
+            <p>Ensure transfers align with project roadmap and rules<br>Prevent founders from rug pulls</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>Check our roadmap nftproject.com/roadmap and only allow transfers that align with it and are documented on our forum found here: www.forum.com</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Charities tab content -->
+        <div class="use-case-content">
+            <h3>What?</h3>
+            <p>Only allow transfers to verified charitable organizations</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>Only allow transfers to verified charitable organizations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Insurance Funds tab content -->
+        <div class="use-case-content">
+            <h3>What?</h3>
+            <p>Release funds after hacks according to predefined criteria</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>Release funds 48 hours after hack of Protocol XYZ if independent audit confirms</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Anti-FUD tab content -->
+        <div class="use-case-content">
+            <h3>What?</h3>
+            <p>Prevent panic selling</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>No token swaps until 2025 or 80% price drop</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- AI Organizations tab content -->
+        <div class="use-case-content">
+            <h3>What?</h3>
+            <p>Create organizations with zero human members controlled fully by AI</p>
+            <div class="example-rules">
+                <h4>Example Rules</h4>
+                <ul>
+                    <li>Only allow transactions that would increase the value of the organization over time. I'm really into AI tokens right now, so only allow trades with those.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+   
+    <footer class="footer">
+        <h2>Sit back and relax,<br>your assets are protected 24/7</h2>
+        <a href="/waitlist.html" class="primary-btn" style="display: inline-flex;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            Join the Waitlist
+        </a>
+    </footer>
+
+    <!-- Add mobile menu button to header -->
+ 
+
+    <!-- Add mobile menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-links">
+            <a href="#use-cases">Use Cases</a>
+            <a href="#contact">Contact Us</a>
+            <a href="/waitlist.html" class="waitlist-btn">Join the Waitlist</a>
+        </div>
+    </div>
+
+<script src="/main.js"></script>
+</body>
+</html> 

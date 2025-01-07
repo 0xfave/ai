@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Waitlist - AssetShield</title>
+    <style>
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/fonts/Inter-Medium.woff2') format('woff2');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            background-color: #020916;
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+        }
+
+        .header {
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        .page-container {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .left-side {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-section h2 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            margin: 0;
+        }
+
+        .waitlist-container {
+            flex: 1;
+            max-width: 500px;
+            background: rgba(2, 6, 23, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .waitlist-form h1 {
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .waitlist-form p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.625rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .radio-group {
+            margin-top: 0.875rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.875rem;
+            cursor: pointer;
+            padding: 0.25rem 0;
+        }
+
+        .radio-option input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            transition: border-color 0.2s ease;
+        }
+
+        .radio-option input[type="radio"]:checked {
+            border-color: #3B82F6;
+        }
+
+        .radio-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #3B82F6;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .radio-option label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .wallet-connect {
+            background: #6D28D9;
+            color: white;
+            width: 100%;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin: 1.5rem 0 0.75rem;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .wallet-connect:hover {
+            background: #5b21b6;
+        }
+
+        .wallet-note {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin: 0.75rem 0 2rem;
+            padding: 0 1rem;
+        }
+
+        .submit-btn {
+            background: #3B82F6;
+            color: white;
+            width: 100%;
+            padding: 0.875rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2563eb;
+        }
+
+        .captcha {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .page-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+            }
+
+            .left-side {
+                text-align: center;
+                padding: 1rem 0;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .waitlist-container {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .page-container {
+                padding: 1rem;
+            }
+
+            .waitlist-form {
+                padding: 1.25rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            input {
+                padding: 0.75rem;
+                font-size: 0.9375rem;
+            }
+
+            .submit-btn {
+                padding: 0.75rem;
+                font-size: 0.9375rem;
+            }
+
+            .logo-section {
+                margin-bottom: 1rem;
+            }
+
+            .logo-section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 0.75rem;
+            }
+
+            .page-container {
+                padding: 0.75rem;
+            }
+
+            .waitlist-form {
+                padding: 1rem;
+            }
+
+            .waitlist-form h1 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .waitlist-form p {
+                font-size: 0.875rem;
+            }
+
+            .logo-section {
+                gap: 0.5rem;
+            }
+
+            .logo-section img {
+                height: 28px;
+            }
+
+            .logo-section h2 {
+                font-size: 1.25rem;
+            }
+
+            input, 
+            .submit-btn {
+                padding: 0.625rem;
+                font-size: 0.875rem;
+            }
+
+            .wallet-connect {
+                padding: 0.625rem;
+                font-size: 0.875rem;
+            }
+
+            .wallet-note {
+                font-size: 0.75rem;
+                margin: 0.5rem 0 1.5rem;
+            }
+        }
+
+        /* Add these styles for the success state */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .success-message.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            border: 3px solid #22c55e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.3s ease-out;
+        }
+
+        .checkmark {
+            stroke: #22c55e;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            animation: checkmark 0.4s ease-in-out 0.2s forwards;
+            stroke-dasharray: 22;
+            stroke-dashoffset: 22;
+        }
+
+        .success-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .success-description {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes checkmark {
+            from { stroke-dashoffset: 22; }
+            to { stroke-dashoffset: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/" class="back-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Home
+        </a>
+    </header>
+
+    <div class="page-container">
+        <div class="left-side">
+            <div class="logo-section">
+                <img src="/images/logo.png" alt="AssetShield Logo" class="logo">
+                <h2>Asset Shield Waitlist</h2>
+            </div>
+            <p class="description">Enter your details to join the waitlist</p>
+        </div>
+
+        <div class="waitlist-container">
+            <form class="waitlist-form">
+                <h1>Join Waitlist</h1>
+                <p>Please fill out the following form to join the Squads Guardian Waitlist</p>
+
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Please select the option that best describes you</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="business" name="userType" value="business">
+                            <label for="business">Business or Organization</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="individual" name="userType" value="individual" checked>
+                            <label for="individual">Individual</label>
+                        </div>
+                    </div>
+                </div>
+
+               
+
+                <button type="submit" class="submit-btn">Join Waitlist</button>
+
+                <div class="captcha">
+                    <!-- Cloudflare Turnstile widget will be inserted here -->
+                </div>
+            </form>
+
+            <div class="success-message">
+                <div class="checkmark-circle">
+                    <svg width="32" height="32" viewBox="0 0 24 24">
+                        <path class="checkmark" d="M20 6L9 17l-5-5"/>
+                    </svg>
+                </div>
+                <h2 class="success-title">You're on the list!</h2>
+                <p class="success-description">
+                    Thanks for joining our waitlist. We'll keep you updated on our progress and let you know when we're ready to launch.
+                </p>
+                <a href="/" class="submit-btn" style="display: inline-block; text-decoration: none;">
+                    Back to Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Form submission handling
+    const waitlistForm = document.querySelector(".waitlist-form");
+    const successMessage = document.querySelector(".success-message");
+
+    if (waitlistForm) {
+      waitlistForm.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Prevent form from submitting normally
+
+        // Get form data
+        const formData = new FormData(waitlistForm);
+        const data = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          userType: formData.get("userType"),
+          wallet: "" // Add wallet address when wallet connection is implemented
+        };
+
+        try {
+          // For testing, let's simulate a successful submission
+          // Remove this and uncomment the fetch when you have an API endpoint
+          waitlistForm.style.display = "none";
+          successMessage.classList.add("active");
+
+          /* Uncomment this when you have an API endpoint
+          const response = await fetch("/api/waitlist", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            // Hide form and show success message
+            waitlistForm.style.display = "none";
+            successMessage.classList.add("active");
+          } else {
+            throw new Error("Submission failed");
+          }
+          */
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Sorry, there was an error submitting your form. Please try again.");
+        }
+      });
+    }
+    </script>
+</body>
+</html> 
